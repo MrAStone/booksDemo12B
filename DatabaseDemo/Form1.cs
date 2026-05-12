@@ -19,12 +19,13 @@ namespace DatabaseDemo
             con.Open();
             MySqlCommand cmd = new MySqlCommand();
             cmd.Connection = con;
-            string SQL = ""; // write your SQL query to get the ISBNs from the database
+            string SQL = "SELECT ISBN FROM Books"; // write your SQL query to get the ISBNs from the database
             cmd.CommandText = SQL;
-            MySqlDataReader reader = cmd.;// select which type of query to execute (Scalar, Reader, NonQuery)
+            MySqlDataReader reader = cmd.ExecuteReader();// select which type of query to execute (Scalar, Reader, NonQuery)
             while (reader.Read())
             {
                 string ISBN = reader.GetString("ISBN");
+                cboISBN.Items.Add(ISBN);
                 // add each read item to your combo box
             }
             con.Close();
@@ -45,7 +46,7 @@ namespace DatabaseDemo
             //WHERE name = @name
             //After the command text has been assigned tell C# to replace the parameter with a variable/value
             //cmd.Parameters.AddWithValue("@name", txtName.Text);
-            
+
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -61,7 +62,7 @@ namespace DatabaseDemo
         }
         private MySqlConnection connect()
         {
-            MySqlConnection con = new MySqlConnection("server=;user=;password=;database="); // fill in your details
+            MySqlConnection con = new MySqlConnection("server=192.168.35.129;user=astone;password=letmein;database=astone_books"); // fill in your details
             return con;
 
         }
