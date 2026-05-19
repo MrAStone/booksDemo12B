@@ -50,9 +50,9 @@ namespace DatabaseDemo
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                string title = //
-                int price = //
-                string type = //
+                string title = reader.GetString("BookTitle");//
+                int price = reader.GetInt32("Price");
+                string type = reader.GetString("Type");//
                 txtTitle.Text = title;
                 txtPrice.Text = price.ToString("£0.00");
                 txtType.Text = type;
