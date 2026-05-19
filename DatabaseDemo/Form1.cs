@@ -38,7 +38,7 @@ namespace DatabaseDemo
             con.Open();
             MySqlCommand cmd = new MySqlCommand();
             cmd.Connection = con;
-            string SQL = "";
+            string SQL = "SELECT BookTitle, Price, Type, FirstName, LastName FROM Books, Authors WHERE ISBN = @ISBN AND Books.AuthorID = Authors.AuthorID";
             cmd.CommandText = SQL;
             string ISBN = cboISBN.Text;
             // add the parameter
@@ -46,7 +46,8 @@ namespace DatabaseDemo
             //WHERE name = @name
             //After the command text has been assigned tell C# to replace the parameter with a variable/value
             //cmd.Parameters.AddWithValue("@name", txtName.Text);
-
+            cmd.CommandText = SQL;
+            cmd.Parameters.AddWithValue("@ISBN", ISBN);
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -56,7 +57,7 @@ namespace DatabaseDemo
                 txtTitle.Text = title;
                 txtPrice.Text = price.ToString("£0.00");
                 txtType.Text = type;
-
+                txtAuthor.Text = reader.GetString("FirstName") + " " + reader.GetString("LastName");
             }
             con.Close();
         }
